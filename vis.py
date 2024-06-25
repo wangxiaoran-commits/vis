@@ -23,6 +23,8 @@ plt.ylabel('Consumption Regions')
 # bbox_to_anchor参数用于控制图例的位置。它定义了图例框相对于指定位置的锚点。参数 (1.05, 1) 表示图例框的右上角（即锚点）将被放置在绘图区域的右上角之外，并且稍微偏右。
 # 1.05 表示图例框的锚点在绘图区域的右边缘之外一点，即 x 轴方向的偏移量为 1.05 倍的绘图区域宽度。
 # 1 表示图例框的锚点在绘图区域的上边缘，即 y 轴方向的偏移量为 1 倍的绘图区域高度。
+#
 plt.legend(title='Production Regions', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
 plt.show()
+
