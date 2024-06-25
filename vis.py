@@ -28,3 +28,29 @@ plt.legend(title='Production Regions', bbox_to_anchor=(1.05, 1), loc='upper left
 plt.tight_layout()
 plt.show()
 
+data3=pd.read_excel('//Users//wangxiaoran//Desktop//画图.xlsx', sheet_name='average_concentration')
+import numpy as np
+
+
+# Renaming columns for easier handling
+data_avg_concentration = data3[['monitoring_province_y', 'adulterant_english_x', 'average_concentration(ug/kg)_log']]
+data_avg_concentration.columns = ['MonitoringProvince', 'Adulterant', 'AverageConcentration']
+
+# 取log
+data_avg_concentration['LogAverageConcentration'] = np.log10(data_avg_concentration['AverageConcentration'] + 1)  # Add 1 to avoid log(0)
+
+#数据透视表
+pivot_data_avg_concentration_log = data_avg_concentration.pivot_table(index='MonitoringProvince', columns='Adulterant', values='LogAverageConcentration', fill_value=0)
+
+# 生成
+plt.figure(figsize=(16, 12))
+sns.set(font_scale=0.9)
+#作图
+heatmap = sns.heatmap(pivot_data_avg_concentration_log, annot=True, cmap="coolwarm", fmt=".2f", linewidths=.5, cbar_kws={'label': 'Log(Average Concentration (ug/kg))'})
+
+plt.title('Heatmap of Log Average Concentration by Monitoring Province and Adulterant')
+plt.xlabel('Adulterant')
+plt.ylabel('Monitoring Province')
+
+plt.tight_layout()
+plt.show()
