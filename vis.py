@@ -76,60 +76,60 @@ from bokeh.io import output_notebook
 # # Show the plot
 # fig.show()
 # show
-# import pandas as pd
-# import seaborn as sns
-# import matplotlib.pyplot as plt
-#
-# # Load the Excel file
-# file_path = '/Users/wangxiaoran/Desktop/副本20240625 画图需求.xlsx'
-# data2 = pd.read_excel(file_path, sheet_name=1)
-#
-# # Renaming columns for easier handling
-# data2.columns = ['MonitoringProvince', 'HIforMfromP', 'ProductionProvince']
-#
-# # Creating the pivot table to prepare the data for plotting
-# pivot_data2 = data2.pivot_table(index='MonitoringProvince', columns='ProductionProvince', values='HIforMfromP', fill_value=0)
-#
-# # Calculate the total Hazard Index for each Monitoring Province for sorting
-# pivot_data2['TotalHI'] = pivot_data2.sum(axis=1)
-#
-# # Sort the pivot table by the Total Hazard Index
-# pivot_data2 = pivot_data2.sort_values('TotalHI', ascending=False)
-#
-# # Drop the TotalHI column after sorting
-# pivot_data2 = pivot_data2.drop(columns=['TotalHI'])
-#
-# # Reset the index to use in Seaborn
-# pivot_data2 = pivot_data2.reset_index()
-#
-# # Melt the dataframe for use in Seaborn
-# melted_data = pivot_data2.melt(id_vars='MonitoringProvince', var_name='ProductionProvince', value_name='HIforMfromP')
-#
-# # Plotting the stacked bar plot
-# plt.figure(figsize=(16, 12))
-# sns.set_palette("Paired")
-#
-# # Create a horizontal barplot
-# barplot = sns.barplot(data=melted_data, y='MonitoringProvince', x='HIforMfromP', hue='ProductionProvince', dodge=False)
-#
-# # Customizing the plot
-# plt.title('The probability of contaminated aquatic products associated with antibiotics in each consumption region, along with the respective contribution proportions from various production regions.',fontsize=10)
-# plt.xlabel('Hazard Index')
-# plt.ylabel('Consumption region')
-#
-# # Remove the barplot frame
-# barplot.spines['top'].set_visible(False)
-# barplot.spines['right'].set_visible(False)
-# barplot.spines['left'].set_visible(False)
-# barplot.spines['bottom'].set_visible(False)
-#
-# # Remove the legend frame
-# legend = plt.legend(title='Production Province', bbox_to_anchor=(1.05, 1), loc='upper left')
-# legend.get_frame().set_linewidth(0.0)
-#
-# # Show the plot
-# plt.tight_layout()
-# plt.show()
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the Excel file
+file_path = '/Users/wangxiaoran/Desktop/副本20240625 画图需求.xlsx'
+data2 = pd.read_excel(file_path, sheet_name=1)
+
+# Renaming columns for easier handling
+data2.columns = ['MonitoringProvince', 'HIforMfromP', 'ProductionProvince']
+
+# Creating the pivot table to prepare the data for plotting
+pivot_data2 = data2.pivot_table(index='MonitoringProvince', columns='ProductionProvince', values='HIforMfromP', fill_value=0)
+
+# Calculate the total Hazard Index for each Monitoring Province for sorting
+pivot_data2['TotalHI'] = pivot_data2.sum(axis=1)
+
+# Sort the pivot table by the Total Hazard Index
+pivot_data2 = pivot_data2.sort_values('TotalHI', ascending=False)
+
+# Drop the TotalHI column after sorting
+pivot_data2 = pivot_data2.drop(columns=['TotalHI'])
+
+# Reset the index to use in Seaborn
+pivot_data2 = pivot_data2.reset_index()
+
+# Melt the dataframe for use in Seaborn
+melted_data = pivot_data2.melt(id_vars='MonitoringProvince', var_name='ProductionProvince', value_name='HIforMfromP')
+
+# Plotting the stacked bar plot
+plt.figure(figsize=(16, 12))
+sns.set_palette("Paired")
+
+# Create a horizontal barplot
+barplot = sns.barplot(data=melted_data, y='MonitoringProvince', x='HIforMfromP', hue='ProductionProvince', dodge=False)
+
+# Customizing the plot
+plt.title('The probability of contaminated aquatic products associated with antibiotics in each consumption region, along with the respective contribution proportions from various production regions.',fontsize=10)
+plt.xlabel('Hazard Index')
+plt.ylabel('Consumption region')
+
+# Remove the barplot frame
+barplot.spines['top'].set_visible(False)
+barplot.spines['right'].set_visible(False)
+barplot.spines['left'].set_visible(False)
+barplot.spines['bottom'].set_visible(False)
+
+# Remove the legend frame
+legend = plt.legend(title='Production Province', bbox_to_anchor=(1.05, 1), loc='upper left')
+legend.get_frame().set_linewidth(0.0)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
 
 
 
@@ -181,58 +181,3 @@ colorbar.set_label('Log1.2(Average Concentration (ug/kg))', fontsize=15)  # 图�
 plt.tight_layout(pad=2)
 plt.show()
 
-import pandas as pd
-import matplotlib.pyplot as plt
-
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-#
-# # 加载数据
-# df = pd.read_excel('/Users/wangxiaoran/Desktop/工作簿1.xlsx')
-#
-# # 打印列名以确认它们
-# print(df.columns)
-#
-# # 创建透视表并计算总的 hazard index 值
-# pivot_df = df.pivot_table(index='Monitoring_province_y', columns='ProductionProvince_x', values='HIforMfromP', aggfunc='sum')
-#
-# # 添加一列用于总的 hazard index 值的排序
-# pivot_df['Total_HI'] = pivot_df.sum(axis=1)
-#
-# # 按总的 hazard index 值排序
-# pivot_df = pivot_df.sort_values('Total_HI', ascending=False)
-#
-# # 绘制堆叠柱状图
-# fig, ax = plt.subplots(figsize=(14, 10))
-# bar_width = 0.9  # 设置柱子的宽度
-# bar_spacing = 0.9 # 设置柱子之间的间隔
-#
-# # 绘制堆叠柱状图
-# pivot_df.drop(columns='Total_HI').plot(kind='barh', stacked=True, ax=ax, width=bar_width)
-# # 设置标题和轴标签
-# plt.title('The probability of contaminated aquatic products associated with antibiotics in each consumption region\n along with the respective contribution proportions from various production regions.', fontsize=16,pad=20)
-# ax.set_xlabel('Hazard Index', fontsize=14,labelpad=15)
-# ax.set_ylabel('Consumption region', fontsize=14,labelpad=15)
-#
-#
-# # 设置x轴和y轴标签的字体大小
-# ax.tick_params(axis='x', labelsize=10)
-# ax.tick_params(axis='y', labelsize=10)
-#
-# # 在每个柱子旁边标注总的 hazard index 值
-# for i in range(len(pivot_df)):
-#     ax.text(pivot_df['Total_HI'].iloc[i], i, f'{pivot_df["Total_HI"].iloc[i]:.5f}', va='center')
-#
-# # 去掉柱状图的外框线
-# ax.spines['top'].set_visible(False)
-# ax.spines['right'].set_visible(False)
-# ax.spines['left'].set_visible(False)
-# ax.spines['bottom'].set_visible(False)
-#
-# # 调整图例
-# ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=False, fontsize=8, ncol=1, columnspacing=0.5, handletextpad=0.5)
-# #调整图表位置
-# plt.subplots_adjust(top=0.9, bottom=0.15)
-# # 显示图表
-# plt.show()
